@@ -1,0 +1,50 @@
+{% extends "polls/basic.html"%}
+
+
+
+{% block title%} Profile {%endblock%}
+
+
+{% block content %}
+
+
+<table class="table">
+
+    <tr>
+        <td>Username</td>
+        <td>{{user.username}}</td>
+    </tr>
+    <tr>
+        <td>Email</td>
+        <td>{{user.email}}</td>
+    </tr>
+
+
+
+    <tr>
+        <td>Date joined</td>
+        <td>{{user.date_joined | date:"SHORT_DATE_FORMAT"}}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+
+<div id="DropDownUpdateProfile"> Edit Profile <i class="fas fa-caret-down"></i> </div>
+
+<div id="UpdateProfile">
+
+    <form action="" method="POST">
+
+        {% csrf_token %}
+
+        {{u_form}}
+
+        <input class="btn btn-outline-info" type="submit">
+
+
+    </form>
+</div>
+{% endblock content%}
