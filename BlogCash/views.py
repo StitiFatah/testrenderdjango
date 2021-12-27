@@ -7,6 +7,10 @@ from rest_framework import permissions
 
 
 def index(request):
+    return HttpResponse("Hello guys")
+
+
+def indexdb(request):
     admin = PersoUser.objects.get(is_admin=True)
     return HttpResponse(f"Hello guys my name is {admin.username}")
 
