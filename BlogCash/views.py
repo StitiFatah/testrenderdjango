@@ -35,10 +35,10 @@ class TestDomain(APIView):
         # resp = str(request.META)
         # resp = "hello"
 
-        resp = {
-            "http_host": request.META["HTTP_HOST"],
-            "http_origin": request.META["HTTP_ORIGIN"],
-        }
+        # resp = {
+            # "http_host": request.META["HTTP_HOST"],
+            # "http_origin": request.META["HTTP_ORIGIN"],
+        # }
 
         resp = {
             "meta": str(request.META)
