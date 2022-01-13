@@ -15,18 +15,30 @@
 import io
 import os
 import dj_database_url
+import environ
+
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-SECRET_KEY = os.environ.get("SECRET_KEY")
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 DEBUG = not "RENDER" in os.environ
 
+
+if not DEBUG:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+else:
+    SECRET_KEY = env("SECRET_KEY")
+
 ALLOWED_HOSTS = []
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+RENDER_EXTERNAL_HOSTNAME = env('RENDER_EXTERNAL_HOSTNAME', default=False)
+
 
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -86,23 +98,27 @@ WSGI_APPLICATION = "BlogCash.wsgi.application"
 # Database
 # [START cloudrun_django_database_config]
 # Use django-environ to parse the connection string
+if  DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': "django.db.backends.postgresql",
+            'NAME': env("DB_NAME"),
+            'USER': env("DB_USER"),
+            'PASSWORD': env("DB_PASSWORD"),
+            'HOST': env("DB_HOST"),
+            'PORT': env("DB_PORT"),
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            # Feel free to alter this value to suit your needs.
+            default='postgresql://postgres:postgres@localhost:5432/mysite',
+            conn_max_age=600
+        )
+    }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
-}
-# If the flag as been set, configure to use proxy
-if os.getenv("BCASH_USE_CLOUD_SQL_AUTH_PROXY", None):
-    DATABASES["default"]["HOST"] = "127.0.0.1"
-    # DATABASES["default"]["PORT"] = 5432
-    DATABASES["default"]["PORT"] = 5433
 
-# [END cloudrun_django_database_config]
-
-# Password validation
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -180,13 +196,16 @@ AUTH_USER_MODEL = "users.PersoUser"
 
 ####
 
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1"]
-CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
+# CORS_ALLOWED_ORIGINS = ["http://127.0.0.1"]
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
+CORS_EXPOSE_HEADERS = ["*"]
 CORS_ALLOW_CREDENTIALS = True
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "localhost:3000",
+        "http://localhost:3000",
+        "https://next-multi-host.archeroe.xyz"
 ]
 
 CSRF_COOKIE_SAMESITE = "Lax"
