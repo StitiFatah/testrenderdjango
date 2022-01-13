@@ -21,7 +21,7 @@ urlpatterns = [
     path("list_test_images/", TestImagesList.as_view(), name="test-image-list"),
     path("get_test_image/<int:pk>/", TestImageGet.as_view(), name="test-image-get"),
     
-    path("test_domain/", TestDomain.as_view(), name="test-domain")
+    path("users/test_domain/", TestDomain.as_view(), name="test-domain")
     ]
 
 if settings.DEBUG is True:
