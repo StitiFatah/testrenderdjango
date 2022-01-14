@@ -40,9 +40,11 @@ class TestDomain(APIView):
             # "http_origin": request.META["HTTP_ORIGIN"],
         # }
 
-        resp = {
-            "meta": str(request.META)
-        }
+        # resp = {
+            # "meta": str(request.META)
+        # }
+        
+        resp = request.headers 
 
         return Response(resp, status=status.HTTP_200_OK)
 
