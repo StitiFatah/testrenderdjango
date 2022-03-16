@@ -76,7 +76,7 @@ class GetHeaders(APIView):
     def get(self, request, *args, **kwargs):
 
         # domain = no_test_get_domain_name_from_request(request=request)
-        headers = request.META
+        headers = request.headers
 
         print(headers)
 
