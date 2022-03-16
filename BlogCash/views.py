@@ -72,12 +72,22 @@ def no_test_get_domain_name_from_request(request):
     raise Exception("Cannot find domain from HTTP headers' from request")
 
 
+def get_user_country_from_request(request):
+    ## works in render thanks to cloudflare
+
+    headers = request.headers
+    country = get_header(http_headers_dict=headers, header_name="Cf-Ipcountry")
+
+    return country
+
+
 class GetHeaders(APIView):
     def get(self, request, *args, **kwargs):
 
         # domain = no_test_get_domain_name_from_request(request=request)
         headers = request.headers
+        country = get_user_country_from_request(request)
 
         print(headers)
 
-        return Response(headers)
+        return Response([headers, country])
