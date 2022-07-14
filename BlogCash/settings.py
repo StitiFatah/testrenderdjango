@@ -24,7 +24,7 @@ env = environ.Env(
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 
 DEBUG = not "RENDER" in os.environ
@@ -37,7 +37,7 @@ else:
 
 ALLOWED_HOSTS = ["*"]
 
-RENDER_EXTERNAL_HOSTNAME = env('RENDER_EXTERNAL_HOSTNAME', default=False)
+RENDER_EXTERNAL_HOSTNAME = env("RENDER_EXTERNAL_HOSTNAME", default=False)
 
 
 if RENDER_EXTERNAL_HOSTNAME:
@@ -57,15 +57,15 @@ INSTALLED_APPS = [
     "BlogCash",
     "storages",
     "django_extensions",
-    'rest_framework',
+    "rest_framework",
     "corsheaders",
     "silk",
-    'drf_spectacular',
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -73,7 +73,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'silk.middleware.SilkyMiddleware',
+    "silk.middleware.SilkyMiddleware",
 ]
 
 ROOT_URLCONF = "BlogCash.urls"
@@ -98,26 +98,25 @@ WSGI_APPLICATION = "BlogCash.wsgi.application"
 # Database
 # [START cloudrun_django_database_config]
 # Use django-environ to parse the connection string
-if  DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': "django.db.backends.postgresql",
-            'NAME': env("DB_NAME"),
-            'USER': env("DB_USER"),
-            'PASSWORD': env("DB_PASSWORD"),
-            'HOST': env("DB_HOST"),
-            'PORT': env("DB_PORT"),
-        }
-    }
-else:
-    DATABASES = {
-        'default': dj_database_url.config(
-            # Feel free to alter this value to suit your needs.
-            default='postgresql://postgres:postgres@localhost:5432/mysite',
-            conn_max_age=600
-        )
-    }
-
+# if  DEBUG:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': "django.db.backends.postgresql",
+#             'NAME': env("DB_NAME"),
+#             'USER': env("DB_USER"),
+#             'PASSWORD': env("DB_PASSWORD"),
+#             'HOST': env("DB_HOST"),
+#             'PORT': env("DB_PORT"),
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': dj_database_url.config(
+#             # Feel free to alter this value to suit your needs.
+#             default='postgresql://postgres:postgres@localhost:5432/mysite',
+#             conn_max_age=600
+#         )
+#     }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -136,10 +135,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.Argon2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
 ]
 
 # Internationalization
@@ -170,17 +169,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # This setting tells Django at which URL static files are going to be served to the user.
 # Here, they well be accessible at your-domain.onrender.com/static/...
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
 # Following settings only make sense on production and may break development environments.
 if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 AUTH_USER_MODEL = "users.PersoUser"
 
@@ -203,10 +202,7 @@ CORS_EXPOSE_HEADERS = ["*"]
 CORS_ALLOW_CREDENTIALS = True
 
 
-CSRF_TRUSTED_ORIGINS = [
-        "http://localhost:3000",
-        "https://next-multi-host.archeroe.xyz"
-]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:3000", "https://next-multi-host.archeroe.xyz"]
 
 CSRF_COOKIE_SAMESITE = "Lax"
 SESSION_COOKIE_SAMESITE = "Lax"
@@ -222,6 +218,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication",
         # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json'
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
 }
