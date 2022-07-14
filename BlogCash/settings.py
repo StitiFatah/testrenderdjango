@@ -98,25 +98,25 @@ WSGI_APPLICATION = "BlogCash.wsgi.application"
 # Database
 # [START cloudrun_django_database_config]
 # Use django-environ to parse the connection string
-# if  DEBUG:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': "django.db.backends.postgresql",
-#             'NAME': env("DB_NAME"),
-#             'USER': env("DB_USER"),
-#             'PASSWORD': env("DB_PASSWORD"),
-#             'HOST': env("DB_HOST"),
-#             'PORT': env("DB_PORT"),
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': dj_database_url.config(
-#             # Feel free to alter this value to suit your needs.
-#             default='postgresql://postgres:postgres@localhost:5432/mysite',
-#             conn_max_age=600
-#         )
-#     }
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DB_NAME"),
+            "USER": env("DB_USER"),
+            "PASSWORD": env("DB_PASSWORD"),
+            "HOST": env("DB_HOST"),
+            "PORT": env("DB_PORT"),
+        }
+    }
+else:
+    DATABASES = {
+        "default": dj_database_url.config(
+            # Feel free to alter this value to suit your needs.
+            default="postgres://t_django_user:dq05oArnVVi50vQlMuXmWxQN6NGbaSa6@dpg-cb81p57d17cadmeb1ogg-a/t_django",
+            conn_max_age=600,
+        )
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
