@@ -113,7 +113,7 @@ else:
     DATABASES = {
         "default": dj_database_url.config(
             # Feel free to alter this value to suit your needs.
-            default="postgres://t_django_user:dq05oArnVVi50vQlMuXmWxQN6NGbaSa6@dpg-cb81p57d17cadmeb1ogg-a/t_django",
+            default="postgresql://cl5u0knmp000j0ostd98j1frn:LETUfbCjlGeiq4CamO8qXsn5@cl5u0knms8089d9stx52t6x15:5432/cl5u0knmq000l0osthvdz06qb",
             conn_max_age=600,
         )
     }
